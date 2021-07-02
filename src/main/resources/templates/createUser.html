@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template">
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+</head>
+<body>
+<div layout:fragment="Mycontent">
+  <div class="container mt-5" >
+    <div class="card-body">
+      <form action="create">
+        <div class="form-group">
+          <label class="control-label">First name :</label>
+          <input type="text" name="first_name" class="form-control"/>
+
+        </div>
+        <div class="form-group">
+          <label class="control-label">Last name :</label>
+          <input type="text" name="last_name" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Email :</label>
+          <input type="email" name="email" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Password :</label>
+          <input type="password" name="password" class="form-control"/>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      </form>
+    </div>
+
+    <br/>
+    <br/>
+    <a href="display">Users List</a>
+  </div>
+</div>
+</body>
+</html>
