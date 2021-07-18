@@ -11,11 +11,13 @@ import org.hibernate.annotations.FetchMode;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@ToString
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -44,5 +46,7 @@ public class User {
         }
    )
    private Set<Projects> projects = new HashSet<>();
+   @OneToMany(mappedBy = "inCharge")
+    List<Task> tasks = new ArrayList<>();
 
 }

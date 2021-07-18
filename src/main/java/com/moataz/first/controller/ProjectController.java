@@ -5,16 +5,15 @@ import com.moataz.first.model.Projects;
 import com.moataz.first.services.ProjectServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @RestController
 public class ProjectController {
+
+
 
     @Autowired
     ProjectServiceImpl pService;
@@ -25,24 +24,26 @@ public class ProjectController {
         return mv;
     }
 
+// Path variable
+// Recherche
 
     @RequestMapping(value = "createProject")
-    public String saveProject(@ModelAttribute("Projects") Projects project ){
+    public String saveProject(@ModelAttribute("Projects") Projects project ) {
         pService.add(project);
         ModelAndView mv = new ModelAndView("displayProjects");
-        return "Project Created with ID = "+project.getPid() ;
+        return "Project Created with ID : " + project.getPid();
     }
-    @RequestMapping("/editProject")
+    @RequestMapping(value = "/editProject",method = RequestMethod.PUT)
     public Projects editUser(@RequestParam("pid")Long pid){
-
         return pService.getProjectsById(pid);
     }
-    @RequestMapping("/update")
+
+    @RequestMapping("/update/{id}")
     public String updateUser(Projects p){
         pService.edit(p);
         return "Project updated";
     }
-    @RequestMapping("/deleteProject")
+    @RequestMapping("/deleteProject/{id}")
     public String deleteUser(@RequestParam("pid") Long pid){
         pService.del(pid);
         return "Project deleted !";
