@@ -4,71 +4,51 @@ package com.moataz.first.controller;
 import com.moataz.first.model.User;
 import com.moataz.first.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     UserServiceImpl uService;
 
-    @RequestMapping("/add")
-    public ModelAndView home() {
-        ModelAndView mv = new ModelAndView("createUser");
-        return mv;
+    @GetMapping("")
+    public List<User> getAllUsers() {
+        return uService.getAllUsers();
     }
 
-
-    @RequestMapping(value = "create")
-        public ModelAndView saveUser(@ModelAttribute("user") User user ){
+    @PostMapping(value = "/")
+        public String saveUser( User user ){
         uService.add(user);
-        ModelAndView mv = new ModelAndView("display");
-        return mv ;
+        return "User created with ID : "+user.getUid() ;
     }
-    @RequestMapping("/editUser")
+
+    @RequestMapping("/update")
         public String editUser(@RequestParam("uid")Long uid){
         User u=uService.getUserById(uid);
         return "updateUser";
     }
-    @RequestMapping("/updateUser")
-    public String updateUser(User u){
-        uService.edit(u);
-        return "display";
+    @PostMapping("/update")
+    public String updateUser(User p) {
+        uService.edit(p);
+        return "User updated";
     }
-    @RequestMapping("/deleteUser")
-        public String deleteUser(@RequestParam Long uid){
+
+    @PostMapping("/delete")
+    public String deleteUser(Long uid){
         uService.del(uid);
         return "User deleted !";
     }
 
-
-
-//    @RequestMapping("/display")
-//    public ModelAndView display(
-//            ModelMap modelMap,
-//     @RequestParam (name="page",defaultValue = "0") int page,
-//     @RequestParam (name="size", defaultValue = "5") int size
-//    )
-//
-//    {
-//        Page<User> users = uService.getAllUsersPerPage(page, size);
-//        modelMap.addAttribute("users", users);
-//
-//        modelMap.addAttribute("pages", new int[users.getTotalPages()]);
-//
-//        modelMap.addAttribute("currentPage", page);
-//        modelMap.addAttribute("size", size);
-//        ModelAndView mv = new ModelAndView("display");
-//        return mv;
-//    }
-
-    @RequestMapping("/displayUsers")
-    public List<User> displayUsers(ModelMap modelMap)
+    @GetMapping("/{uid}")
+    public User getUserById(@PathVariable("uid") Long uid)
     {
-        return uService.getAllUsers();
+        return uService.getUserById(uid);
     }
+
 }
+

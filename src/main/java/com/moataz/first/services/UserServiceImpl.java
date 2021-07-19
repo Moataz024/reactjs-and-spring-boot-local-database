@@ -32,13 +32,12 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getAllUsers(){
-        List<User> users = new ArrayList<>();
-        users.addAll(UserRepo.findAll());
+        List<User> users = new ArrayList<>(UserRepo.findAll());
         return users;
     }
 
     public User getUserById(Long uid){
-        return UserRepo.getById(uid);
+        return UserRepo.findById(uid).get();
     }
 
     public Page<User> getAllUsersPerPage(int page, int size) {

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -34,12 +33,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public List<Projects> getAllProjects(){
-        List<Projects> projects = new ArrayList<>();
-        projects.addAll(pRepo.findAll());
+        List<Projects> projects = new ArrayList<>(pRepo.findAll());
         return projects;
     }
 
-    public Projects getUserById(Long pid){
+    public Projects getProjectById(Long pid){
         return pRepo.getById(pid);
     }
 
@@ -49,6 +47,6 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     public Projects getProjectsById(Long pid) {
-        return  pRepo.getById(pid);
+        return  pRepo.findById(pid).get();
     }
 }

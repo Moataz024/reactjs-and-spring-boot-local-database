@@ -15,13 +15,15 @@ import javax.persistence.*;
 public class Task {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
  private Long tid;
  private String taskName;
  private String taskDescription;
- private int priority;
+  @Column(columnDefinition = "VARCHAR(10) CHECK (priority IN ('SEVERE', 'HIGH','MEDIUM','LOW'))")
+ private String priority;
   @ManyToOne
  public User inCharge;
-  @Column(columnDefinition = "VARCHAR(10) CHECK (status IN ('DONE', 'TO DO', 'DONE','TESTING','DEPLOYED'))")
+  @Column(columnDefinition = "VARCHAR(10) CHECK (status IN ('TODO', 'DONE','TESTING','DEPLOYED'))")
  public String status;
 
 }

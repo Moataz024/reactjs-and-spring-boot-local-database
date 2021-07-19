@@ -33,7 +33,7 @@ public class Projects {
     private String Status;
      @Column(columnDefinition = "integer(3) default 0")
      private int Completion;
-     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "projects")
+     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "projects")
      @Fetch(value= FetchMode.SELECT)
      private Set<User> users = new HashSet<>();
 

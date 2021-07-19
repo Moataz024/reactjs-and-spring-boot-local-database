@@ -11,7 +11,7 @@ public interface ProjectService {
     String del(Long pid);
     Projects edit(Projects project);
     List<Projects> getAllProjects();
-    Projects getUserById(Long pid);
+    Projects getProjectById(Long pid);
     Page<Projects> getAllProjectsPerPage(int page, int size);
 
 }

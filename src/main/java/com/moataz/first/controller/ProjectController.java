@@ -10,7 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+
 @RestController
+@RequestMapping("/project")
 public class ProjectController {
 
 
@@ -18,40 +20,37 @@ public class ProjectController {
     @Autowired
     ProjectServiceImpl pService;
 
-    @RequestMapping("/")
-    public ModelAndView home() {
-        ModelAndView mv = new ModelAndView("home");
-        return mv;
+    @GetMapping("")
+    public List<Projects> getAllProjects() {
+        return pService.getAllProjects();
     }
 
-// Path variable
-// Recherche
-
-    @RequestMapping(value = "createProject")
+    @PostMapping(value = "/")
     public String saveProject(@ModelAttribute("Projects") Projects project ) {
         pService.add(project);
-        ModelAndView mv = new ModelAndView("displayProjects");
         return "Project Created with ID : " + project.getPid();
     }
-    @RequestMapping(value = "/editProject",method = RequestMethod.PUT)
+/*    @PostMapping(value = "/edit")
     public Projects editUser(@RequestParam("pid")Long pid){
         return pService.getProjectsById(pid);
-    }
+    }*/
 
-    @RequestMapping("/update/{id}")
-    public String updateUser(Projects p){
+    @PostMapping("/update")
+    public String updateProject(Projects p) {
         pService.edit(p);
         return "Project updated";
     }
-    @RequestMapping("/deleteProject/{id}")
-    public String deleteUser(@RequestParam("pid") Long pid){
+
+    @PostMapping("/delete")
+    public String deleteProject(Long pid){
         pService.del(pid);
         return "Project deleted !";
     }
-    @RequestMapping("/displayProjects")
-    public List<Projects> displayUsers(ModelMap modelMap)
+
+    @GetMapping("/{pid}")
+    public Projects getProjectById(@PathVariable("pid") Long pid)
     {
-        return pService.getAllProjects();
+        return pService.getProjectsById(pid);
     }
 
 }
