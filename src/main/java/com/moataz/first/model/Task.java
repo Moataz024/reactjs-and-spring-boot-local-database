@@ -10,12 +10,12 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString
-@Data
 @Entity
-public class Task {
+public class Task extends AbstractEntity {
 
   @Id
- private Long tid;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long tid;
  private String taskName;
  private String taskDescription;
  private int priority;

@@ -1,14 +1,11 @@
 package com.moataz.first.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,9 +19,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "uid")
-public class User {
+@Entity
+public class User extends AbstractEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

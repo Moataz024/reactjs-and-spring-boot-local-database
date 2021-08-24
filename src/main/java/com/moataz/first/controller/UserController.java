@@ -11,63 +11,36 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     UserServiceImpl uService;
 
-    @RequestMapping("/add")
-    public ModelAndView home() {
-        ModelAndView mv = new ModelAndView("createUser");
-        return mv;
-    }
 
 
-    @RequestMapping(value = "create")
-        public ModelAndView saveUser(@ModelAttribute("user") User user ){
-        uService.add(user);
-        ModelAndView mv = new ModelAndView("display");
-        return mv ;
+    @PutMapping( "/createUser")
+        public User saveUser(@ModelAttribute("user") User user ){
+        return uService.add(user);
     }
-    @RequestMapping("/editUser")
-        public String editUser(@RequestParam("uid")Long uid){
-        User u=uService.getUserById(uid);
-        return "updateUser";
+
+    @GetMapping("/getUser")
+        public User editUser(@PathVariable("uid") Long uid){
+        return uService.getUserById(uid);
     }
-    @RequestMapping("/updateUser")
+    @PutMapping("/updateUser")
     public String updateUser(User u){
         uService.edit(u);
-        return "display";
+        return "User updated";
     }
-    @RequestMapping("/deleteUser")
-        public String deleteUser(@RequestParam Long uid){
+    @DeleteMapping("/deleteUser/{uid}")
+        public String deleteUser(@PathVariable("uid") Long uid){
         uService.del(uid);
         return "User deleted !";
     }
 
-
-
-//    @RequestMapping("/display")
-//    public ModelAndView display(
-//            ModelMap modelMap,
-//     @RequestParam (name="page",defaultValue = "0") int page,
-//     @RequestParam (name="size", defaultValue = "5") int size
-//    )
-//
-//    {
-//        Page<User> users = uService.getAllUsersPerPage(page, size);
-//        modelMap.addAttribute("users", users);
-//
-//        modelMap.addAttribute("pages", new int[users.getTotalPages()]);
-//
-//        modelMap.addAttribute("currentPage", page);
-//        modelMap.addAttribute("size", size);
-//        ModelAndView mv = new ModelAndView("display");
-//        return mv;
-//    }
-
-    @RequestMapping("/displayUsers")
-    public List<User> displayUsers(ModelMap modelMap)
+    @GetMapping("/displayUsers")
+    public List<User> displayUsers()
     {
         return uService.getAllUsers();
     }
