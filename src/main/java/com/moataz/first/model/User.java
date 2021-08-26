@@ -3,6 +3,7 @@ package com.moataz.first.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Setter
 @Getter
 @AllArgsConstructor

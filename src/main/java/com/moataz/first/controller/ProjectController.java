@@ -18,6 +18,12 @@ public class ProjectController {
     ProjectServiceImpl pService;
 
 
+    @RequestMapping("")
+    public List<Projects> getAllProjects(ModelMap modelMap)
+    {
+        return pService.getAllProjects();
+    }
+
     @PutMapping(value = "/createProject")
     public String saveProject(@ModelAttribute("Projects") Projects project ) {
         pService.add(project);
@@ -28,7 +34,7 @@ public class ProjectController {
         return pService.getProjectsById(pid);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{pid}")
     public String updateUser(@PathVariable("pid")Long pid, Projects p){
         pService.edit(p);
         return "Project updated";

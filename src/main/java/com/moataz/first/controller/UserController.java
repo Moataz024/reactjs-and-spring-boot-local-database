@@ -17,14 +17,18 @@ public class UserController {
     @Autowired
     UserServiceImpl uService;
 
+    @GetMapping("")
+    public List<User> getAllUsers()
+    {
+        return uService.getAllUsers();
+    }
 
-
-    @PutMapping( "/createUser")
+    @PostMapping( "/createUser")
         public User saveUser(@ModelAttribute("user") User user ){
         return uService.add(user);
     }
 
-    @GetMapping("/getUser")
+    @GetMapping("/{uid}")
         public User editUser(@PathVariable("uid") Long uid){
         return uService.getUserById(uid);
     }

@@ -1,6 +1,7 @@
 package com.moataz.first.controller;
 
 
+
 import com.moataz.first.model.Task;
 import com.moataz.first.services.TaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ public class TaskController {
         return taskService.getTaskById(tid);
 
     }
-
+    @PutMapping("/update/{tid}")
+    public String updateUser(@PathVariable("tid")Long tid, Task t){
+        taskService.editTask(t);
+        return "Task updated";
+    }
     @PutMapping("/add")
     public String addTask(@ModelAttribute("Task")Task task){
         taskService.addTask(task);
