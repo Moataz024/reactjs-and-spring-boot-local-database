@@ -26,7 +26,7 @@ public class Projects extends AbstractEntity{
     private Long pid;
     private String p_name;
     private String Description;
-     @Column(columnDefinition = "VARCHAR(10) CHECK (status IN ('ACTIVE', 'IN PROGRESS', 'INACTIVE'))")
+     @Column(columnDefinition = "VARCHAR(15) CHECK (status IN ('ACTIVE', 'IN PROGRESS', 'INACTIVE'))")
     private String Status;
      @Column(columnDefinition = "integer(3) default 0")
      private int Completion;

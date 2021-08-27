@@ -23,24 +23,25 @@ public class ProjectController {
     {
         return pService.getAllProjects();
     }
+    @GetMapping("/{pid}")
+    public Projects getProject(@PathVariable("pid")Long pid){
+        return pService.getProjectsById(pid);
+    }
 
     @PutMapping(value = "/createProject")
-    public String saveProject(@ModelAttribute("Projects") Projects project ) {
+    public String saveProject( Projects project ) {
         pService.add(project);
         return "Project Created with ID : " + project.getPid();
     }
-    @GetMapping("/editProject")
-    public Projects editUser(@RequestParam("pid")Long pid){
-        return pService.getProjectsById(pid);
-    }
+
 
     @PutMapping("/update/{pid}")
     public String updateUser(@PathVariable("pid")Long pid, Projects p){
         pService.edit(p);
         return "Project updated";
     }
-    @RequestMapping("/deleteProject/{id}")
-    public String deleteUser(@RequestParam("pid") Long pid){
+    @DeleteMapping("/deleteProject/{pid}")
+    public String deleteProject(@PathVariable(value = "pid")Long pid){
         pService.del(pid);
         return "Project deleted !";
     }
