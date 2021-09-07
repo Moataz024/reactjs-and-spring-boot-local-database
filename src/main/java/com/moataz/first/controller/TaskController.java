@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/task")
 public class TaskController {
@@ -27,23 +28,21 @@ public class TaskController {
         return taskService.getTaskById(tid);
 
     }
-    @PutMapping("/update/{tid}")
+    @PutMapping("/updateTask/{tid}")
     public String updateUser(@PathVariable("tid")Long tid, Task t){
         taskService.editTask(t);
         return "Task updated";
     }
-    @PutMapping("/add")
+    @PutMapping("/createTask")
     public String addTask(@ModelAttribute("Task")Task task){
         taskService.addTask(task);
         return "Task added successfuly";
     }
 
-    @PutMapping("/delete")
+    @DeleteMapping("/deleteTask")
     public String deleteTask(Long tid){
         taskService.deleteTask(tid);
         return "Task deleted successfuly";
     }
-
-
 
 }

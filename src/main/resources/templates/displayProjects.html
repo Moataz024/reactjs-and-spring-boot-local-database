@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css"
+      href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+    <meta charset="utf-8">
+    <title>Projects</title>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header"> </div>
+        <div class="card-body">
+
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th><th>Project name</th><th>Description</th><th>Status</th><th>Completion</th>
+                </tr>
+                <tr th:each="p:${projects}">
+                    <td th:text="${p.pid}"></td>
+                    <td th:text="${p.p_name}"></td>
+                    <td th:text="${p.description}"></td>
+                    <td th:text="${p.status}"></td>
+                    <td th:text="${p.completion}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

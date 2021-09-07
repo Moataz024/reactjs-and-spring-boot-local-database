@@ -32,6 +32,10 @@ public class User extends AbstractEntity{
     @Column( unique = true )
    private String email;
    private String password;
+    @Column(columnDefinition = "VARCHAR(25) CHECK (role IN ('Project Manager', 'Employee')) default 'Employee'")
+   private String role;
+    @Column(columnDefinition = "VARCHAR(12)")
+    private String phone;
 
    @ManyToMany(fetch= FetchType.EAGER,cascade = CascadeType.ALL)
    @Fetch(value= FetchMode.SELECT)

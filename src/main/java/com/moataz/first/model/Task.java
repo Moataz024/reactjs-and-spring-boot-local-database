@@ -17,12 +17,12 @@ public class Task extends AbstractEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long tid;
- private String taskName;
+ private String task_Name;
  private String taskDescription;
  private int priority;
   @ManyToOne
  public User inCharge;
-  @Column(columnDefinition = "VARCHAR(10) CHECK (status IN ('DONE', 'TO DO', 'DONE','TESTING','DEPLOYED'))")
+  @Column(columnDefinition = "VARCHAR(10) CHECK (status IN ('DONE', 'TO DO', 'IN PROGRESS','TESTING','DEPLOYED'))")
  public String status;
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
@@ -19,7 +20,7 @@ public class ProjectController {
 
 
     @RequestMapping("")
-    public List<Projects> getAllProjects(ModelMap modelMap)
+    public List<Projects> getAllProjects()
     {
         return pService.getAllProjects();
     }
@@ -33,10 +34,13 @@ public class ProjectController {
         pService.add(project);
         return "Project Created with ID : " + project.getPid();
     }
-
+    @GetMapping("/getProject")
+    public Projects editUser(@RequestParam("pid")Long pid){
+        return pService.getProjectsById(pid);
+    }
 
     @PutMapping("/update/{pid}")
-    public String updateUser(@PathVariable("pid")Long pid, Projects p){
+    public String updateUser(@PathVariable("pid") Projects p){
         pService.edit(p);
         return "Project updated";
     }
@@ -45,10 +49,18 @@ public class ProjectController {
         pService.del(pid);
         return "Project deleted !";
     }
-    @RequestMapping("/displayProjects")
-    public List<Projects> displayProjects(ModelMap modelMap)
+    @RequestMapping("/displayAllProjects")
+    public String displayProjects(@ModelAttribute("projects") List<Projects> projects,ModelMap modelMap)
     {
-        return pService.getAllProjects();
+        projects = pService.getAllProjects();
+        modelMap.addAttribute("projects",projects);
+        return "displayProjects";
     }
 
+/*    @PutMapping("/addUsersToProject")
+    public void addUsersToProject(Long pid){
+        Set<User> us = pService.getProjectsById(pid).getUsers();
+        us.addAll(users);
+        pService.getProjectsById(pid).setUsers(us);
+    }*/
 }
